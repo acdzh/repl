@@ -1,0 +1,3 @@
+factorial = (x) ->
+  if x then x * factorial x - 1 else 1
+factorial 6

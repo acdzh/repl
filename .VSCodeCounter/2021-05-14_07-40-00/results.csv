@@ -1,0 +1,65 @@
+"filename", "language", "TypeScript", "TypeScript React", "CSS", "SCSS", "comment", "blank", "total"
+"c:\Users\acdzh\Desktop\repl\src\App.tsx", "TypeScript React", 0, 140, 0, 0, 0, 8, 148
+"c:\Users\acdzh\Desktop\repl\src\components\Highlight\hljs.ts", "TypeScript", 19, 0, 0, 0, 366, 4, 389
+"c:\Users\acdzh\Desktop\repl\src\components\Highlight\index.scss", "SCSS", 0, 0, 0, 6, 0, 2, 8
+"c:\Users\acdzh\Desktop\repl\src\components\Highlight\index.tsx", "TypeScript React", 0, 36, 0, 0, 1, 5, 42
+"c:\Users\acdzh\Desktop\repl\src\components\Highlight\languages.d.ts", "TypeScript", 1, 0, 0, 0, 2, 0, 3
+"c:\Users\acdzh\Desktop\repl\src\components\Monaco\Container\index.tsx", "TypeScript React", 0, 42, 0, 0, 0, 4, 46
+"c:\Users\acdzh\Desktop\repl\src\components\Monaco\Editor\index.ts", "TypeScript", 222, 0, 0, 0, 5, 44, 271
+"c:\Users\acdzh\Desktop\repl\src\components\Monaco\Loading\index.tsx", "TypeScript React", 0, 15, 0, 0, 0, 5, 20
+"c:\Users\acdzh\Desktop\repl\src\components\Monaco\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 1
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\Terminal.tsx", "TypeScript React", 0, 473, 0, 0, 33, 55, 561
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\TerminalEcho.tsx", "TypeScript React", 0, 18, 0, 0, 0, 4, 22
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\TerminalMessage.tsx", "TypeScript React", 0, 24, 0, 0, 1, 3, 28
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\handlers\parseEOL.ts", "TypeScript", 19, 0, 0, 0, 1, 8, 28
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\handlers\scrollHistory.ts", "TypeScript", 101, 0, 0, 0, 19, 16, 136
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\handlers\validateCommands.ts", "TypeScript", 50, 0, 0, 0, 10, 13, 73
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\index.ts", "TypeScript", 2, 0, 0, 0, 0, 2, 4
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\styles\terminal.scss", "SCSS", 0, 0, 0, 80, 0, 21, 101
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\types\command.ts", "TypeScript", 16, 0, 0, 0, 1, 4, 21
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\types\style.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 1
+"c:\Users\acdzh\Desktop\repl\src\components\Terminal\utils\commandExists.ts", "TypeScript", 14, 0, 0, 0, 1, 3, 18
+"c:\Users\acdzh\Desktop\repl\src\hooks\useEditableState.ts", "TypeScript", 19, 0, 0, 0, 1, 3, 23
+"c:\Users\acdzh\Desktop\repl\src\hooks\useEffectState.ts", "TypeScript", 12, 0, 0, 0, 0, 3, 15
+"c:\Users\acdzh\Desktop\repl\src\hooks\useEvent.ts", "TypeScript", 17, 0, 0, 0, 0, 3, 20
+"c:\Users\acdzh\Desktop\repl\src\hooks\useRenderController.tsx", "TypeScript React", 0, 19, 0, 0, 0, 3, 22
+"c:\Users\acdzh\Desktop\repl\src\hooks\useReversibleState.ts", "TypeScript", 14, 0, 0, 0, 0, 3, 17
+"c:\Users\acdzh\Desktop\repl\src\index.tsx", "TypeScript React", 0, 8, 0, 0, 0, 3, 11
+"c:\Users\acdzh\Desktop\repl\src\libs\Event.ts", "TypeScript", 27, 0, 0, 0, 3, 7, 37
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\EventEmitter.ts", "TypeScript", 61, 0, 0, 0, 3, 10, 74
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\Loader.ts", "TypeScript", 25, 0, 0, 0, 4, 6, 35
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\REPL.ts", "TypeScript", 174, 0, 0, 0, 12, 27, 213
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\Sandbox.ts", "TypeScript", 90, 0, 0, 0, 16, 13, 119
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\const.ts", "TypeScript", 16, 0, 0, 0, 2, 5, 23
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\index.ts", "TypeScript", 2, 0, 0, 0, 0, 2, 4
+"c:\Users\acdzh\Desktop\repl\src\libs\REPL\languages.ts", "TypeScript", 291, 0, 0, 0, 0, 2, 293
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\apl\index.ts", "TypeScript", 21, 0, 0, 0, 0, 2, 23
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\bloop\index.ts", "TypeScript", 21, 0, 0, 0, 0, 2, 23
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\brainfuck\index.ts", "TypeScript", 16, 0, 0, 0, 0, 2, 18
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\coffeescript\index.ts", "TypeScript", 26, 0, 0, 0, 0, 2, 28
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\emoticon\index.ts", "TypeScript", 26, 0, 0, 0, 0, 2, 28
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\forth\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\index.ts", "TypeScript", 47, 0, 0, 0, 0, 3, 50
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\javascript\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\kaffeine\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\lolcode\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\lua\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\move\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\python\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\qbasic\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\roy\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\ruby\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\scheme\index.ts", "TypeScript", 31, 0, 0, 0, 0, 2, 33
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\traceur\index.ts", "TypeScript", 26, 0, 0, 0, 0, 2, 28
+"c:\Users\acdzh\Desktop\repl\src\libs\examples\unlambda\index.ts", "TypeScript", 26, 0, 0, 0, 0, 2, 28
+"c:\Users\acdzh\Desktop\repl\src\pages\About\index.tsx", "TypeScript React", 0, 60, 0, 0, 4, 12, 76
+"c:\Users\acdzh\Desktop\repl\src\pages\Example\index.tsx", "TypeScript React", 0, 136, 0, 0, 48, 12, 196
+"c:\Users\acdzh\Desktop\repl\src\pages\Home\index.tsx", "TypeScript React", 0, 117, 0, 0, 0, 6, 123
+"c:\Users\acdzh\Desktop\repl\src\pages\Language\index.css", "CSS", 0, 0, 6, 0, 0, 1, 7
+"c:\Users\acdzh\Desktop\repl\src\pages\Language\index.tsx", "TypeScript React", 0, 114, 0, 0, 7, 15, 136
+"c:\Users\acdzh\Desktop\repl\src\styles\global.css", "CSS", 0, 0, 24, 0, 0, 8, 32
+"c:\Users\acdzh\Desktop\repl\src\test.ts", "TypeScript", 1, 0, 0, 0, 1, 1, 3
+"c:\Users\acdzh\Desktop\repl\src\types\global.d.ts", "TypeScript", 19, 0, 0, 0, 1, 2, 22
+"c:\Users\acdzh\Desktop\repl\src\utils\copyText.ts", "TypeScript", 11, 0, 0, 0, 0, 2, 13
+"c:\Users\acdzh\Desktop\repl\src\utils\innerText.ts", "TypeScript", 32, 0, 0, 0, 7, 10, 49
+"Total", "-", 1805, 1202, 30, 86, 549, 401, 4073

@@ -1,0 +1,7 @@
+: NESTED ( n m --) CR
+  0 DO DUP ( n n --)
+    0 DO CR J .  I .
+    LOOP
+  LOOP
+DROP ;
+2 3  NESTED

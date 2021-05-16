@@ -1,0 +1,100 @@
+.terminal {
+  &-container {
+    min-height: 300px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5px;
+    overflow: auto;
+    cursor: text;
+    background-size: cover;
+    height: 100%;
+  }
+
+  &-container.light  {
+    background: #fff0;
+  }
+
+  &-container.dark  {
+    background: #fff0;
+  }
+
+  &-content {
+    padding: 20px;
+    height: 100%;
+    font-size: 16px;
+    font-family: monospace;
+  }
+
+  &-input-area {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  &-prompt-label {
+    padding-top: 3px;
+  }
+
+  &-input {
+    border: 0px;
+    padding: 0px 0px 0px 7px;
+    margin: 0px;
+    flex-grow: 100;
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    font-family: monospace;
+  }
+
+  &-messagee-container {
+    margin: 0px;
+    width: 100%;
+    height: 22px;
+  }
+}
+
+.light .terminal {
+  &-content {
+    color: #000;
+  }
+
+  
+  &-prompt-label {
+    color: #3734ee;
+  }
+
+  &-input {
+    color: #221eee;
+  }
+
+  &-token {
+    &-error{
+      color: #f00;
+    }
+  }
+}
+
+.dark .terminal {
+  &-content {
+    color: #fff;
+  }
+
+  &-prompt-label {
+    color: #EE9C34;
+  }
+
+  &-input {
+    color: #F0BF81;
+  }
+
+  &-token {
+    &-error{
+      color: #f00;
+    }
+  }
+}
+
+
+
+

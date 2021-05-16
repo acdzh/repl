@@ -1,0 +1,2 @@
+RESET
+:-O Hello World :-Q S:-P :-Q

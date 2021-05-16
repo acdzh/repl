@@ -1,0 +1,2 @@
+square = (x) -> x * x
+console.dir (square num for num in [10..1])

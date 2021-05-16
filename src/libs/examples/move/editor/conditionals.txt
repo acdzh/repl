@@ -1,0 +1,9 @@
+print 'Enter an integer: '
+read ^(str){
+  number = parseInt str, 10
+  if (number % 2) {
+    print number, 'is odd.'
+  } else {
+    print number, 'is even.'
+  }
+}

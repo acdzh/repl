@@ -1,0 +1,9 @@
+Person = (name, job = 'logician') {
+  @name = name
+  @job = job
+}
+Person::whoAmI = {
+  console.log "I'm #{@name} the #{@job}!"
+}
+crystal = new Person 'Crystal'
+crystal.whoAmI()

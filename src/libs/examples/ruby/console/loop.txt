@@ -1,0 +1,2 @@
+say = 'I love Ruby!'
+5.times { puts say }

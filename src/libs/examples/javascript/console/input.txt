@@ -1,0 +1,4 @@
+console.log("Enter your name:");
+console.read(function(name) {
+  console.log('Your name is ' + name + '.');
+});

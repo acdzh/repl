@@ -1,0 +1,41 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/typescript"
+  ],
+  
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/core",
+        "libraryDirectory": "esm",
+        "camel2DashComponentName": false
+      },
+      "core"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "esm",
+        "camel2DashComponentName": false
+      },
+      "icons"
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@": "./src",
+          "@utils": "./src/utils",
+          "@libs": "./src/libs",
+          "@hooks": "./src/hooks",
+          "@components": "src/components"
+        }
+      }
+    ],
+    ["@babel/plugin-transform-runtime"]
+  ]
+}

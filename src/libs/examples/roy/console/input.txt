@@ -1,0 +1,2 @@
+console.log "Enter your name:"
+console.read (\n -> console.log "Hi " ++ n)

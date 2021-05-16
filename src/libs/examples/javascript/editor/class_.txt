@@ -1,0 +1,9 @@
+function Person(name, job) {
+  this.name = name;
+  this.job = job;
+  this.print = function() {
+    console.log(this.name + ', ' + this.job);
+  };
+}
+var thatGuy = new Person("Jack", "coder");
+thatGuy.print();
