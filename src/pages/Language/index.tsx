@@ -84,6 +84,9 @@ const Home: React.FC = () => {
   const [updateEvent] = useState(new Event());
   const repl = useMemo(() => new REPL({
     result: (data) => {
+      if (!data || data === '' || data === []) {
+        return;
+      }
       updateEvent.dispatch(
         <>
           {
@@ -93,6 +96,9 @@ const Home: React.FC = () => {
       );
     },
     output: (data) => {
+      if (!data || data === '' || data === []) {
+        return;
+      }
       updateEvent.dispatch(data);
     },
     error: (data) => {

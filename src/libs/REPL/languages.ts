@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 const languageList = {
   qbasic: {
     systemName: 'qbasic',
@@ -53,17 +54,48 @@ const languageList = {
     name: 'JavaScript',
     extension: 'js',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['util/console.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/javascript/jsrepl_js.js',
+    engine: 'javascript.js',
     minifier: 'closure',
     tagline: 'The de facto language of the Web.',
     shortcut: 'J',
     aboutLink: 'http://en.wikipedia.org/wiki/Javascript',
     engineLink: 'http://en.wikipedia.org/wiki/JavaScript_engine#JavaScript_engines',
-
-    ace_mode: { script: '/lib/ace/mode-javascript.js', module: 'ace/mode/javascript' },
-    header: '',
+    header: `Native ${
+      typeof navigator !== 'undefined' && navigator !== null
+        ? navigator.userAgent.match(/WebKit/)
+          ? navigator.userAgent.match(/Android/)
+            ? 'Android'
+            : navigator.userAgent.match(/Chrome/)
+              ? 'Chrome'
+              : 'WebKit'
+          : navigator.userAgent.match(/Opera/)
+            ? 'Opera'
+            : navigator.userAgent.match(/Trident/) // ie
+              ? 'Internet Explorer'
+              : navigator.userAgent.match(/Mozilla/)
+                ? 'Mozilla Firefox'
+                : 'Browser'
+        : 'Unknown'} JavaScript.\nCopyright (c) ${new Date().getFullYear()} ${
+      (
+        typeof navigator !== 'undefined' && navigator !== null
+          ? navigator.vendor
+            ? navigator.vendor.toString().replace(/\.$/, '') : '' : ''
+      ) || (
+        typeof navigator !== 'undefined' && navigator !== null
+          ? navigator.userAgent.match(/WebKit/)
+            ? 'Apple Inc'
+            : navigator.userAgent.match(/Opera/)
+              ? 'Opera Software ASA'
+              : navigator.userAgent.match(/Trident/) // ie
+                ? 'Microsoft'
+                : navigator.userAgent.match(/Mozilla/)
+                  ? 'Mozilla Foundation'
+                  : 'Browser Vendor'
+          : ''
+      )
+    }`,
   },
   coffeescript: {
     systemName: 'coffeescript',
@@ -117,48 +149,47 @@ const languageList = {
     name: 'LOLCODE',
     extension: 'lol',
     matchings: [],
-    scripts: ['extern/lol-coffee/src/base.js', 'extern/lol-coffee/src/machine.js', 'extern/lol-coffee/src/ast.js', 'extern/lol-coffee/src/parser.js', 'extern/lol-coffee/src/tokenizer.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/lolcode/jsrepl_lolcode.js',
+    engine: 'lolcode.js',
     minifier: 'closure',
     tagline: 'The basic language of lolcats.',
     shortcut: 'O',
-    aboutLink: 'http://lolcode.com/specs/1.2',
-    engineLink: 'https://github.com/replit/lol-coffee',
+    aboutLink: 'http://www.lolcode.org/',
+    engineLink: 'https://github.com/NullDev/I-HAS-JS',
 
-    header: 'LOLCODE v1.2 (lol-coffee)\nCopyright (c) 2011 Max Shawabkeh',
+    header: 'LOLCODE v1.2 (I-HAS-JS)\nCopyright (c) 2211 NullDev',
   },
   kaffeine: {
     systemName: 'kaffeine',
     name: 'Kaffeine',
     extension: 'k',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['extern/kaffeine/kaffeine-browser.js', 'util/console.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/kaffeine/jsrepl_kaffeine.js',
+    engine: 'kaffeine.js',
     minifier: 'closure',
     tagline: 'Extended JavaScript for pros.',
     shortcut: 'K',
     aboutLink: 'http://weepy.github.com/kaffeine/',
     engineLink: 'https://github.com/weepy/kaffeine',
-
-    header: "| |/ /__ _ / _|/ _|___(_)_ _  ___\n| ' </ _` |  _|  _/ -_) | ' \\/ -_)\n|_|\\_\\__,_|_| |_| \\___|_|_||_\\___|\nVersion 0.0.4, Copyright (c) 2010 Jonah Fox",
+    header: " _  __      __  __     _\n| |/ /__ _ / _|/ _|___(_)_ _  ___\n| ' </ _` |  _|  _/ -_) | ' \\/ -_)\n|_|\\_\\__,_|_| |_| \\___|_|_||_\\___|\nVersion 0.0.4, Copyright (c) 2010 Jonah Fox",
   },
   move: {
     systemName: 'move',
     name: 'Move',
     extension: 'mv',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['extern/move/move.js', 'util/console.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/move/jsrepl_move.js',
+    engine: 'move.js',
     minifier: 'closure',
     tagline: 'The easy way to program the web.',
     shortcut: 'M',
     aboutLink: 'http://movelang.org/',
     engineLink: 'https://github.com/rsms/move',
 
-    header: 'Move v0.4.3\nCopyright (c) 2011 Rasmus Andersson',
+    header: 'Move v0.4.9\nCopyright (c) 2021 Rasmus Andersson',
   },
   traceur: {
     systemName: 'traceur',
@@ -212,42 +243,48 @@ const languageList = {
     name: 'Forth',
     extensions: '4th',
     matchings: [['(', ')'], [':', ';']],
-    scripts: ['extern/jsforth/jsforth.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/forth/jsrepl_forth.js',
+    engine: 'forth.js',
     minifier: 'closure',
     tagline: 'An interactive stack-oriented language.',
     shortcut: 'h',
     aboutLink: 'http://en.wikipedia.org/wiki/Forth_(programming_language)',
-    engineLink: 'https://github.com/replit/jsrepl/blob/master/extern/jsforth/jsforth.js',
+    engineLink: 'https://github.com/acdzh/repl/blob/master/src/sandbox/forth/jsforth.js',
     header: 'JS-Forth 0.5200804171342\nhttp://www.forthfreak.net/jsforth.html\nThis program is published under the GPL.',
-    ace_mode: { script: '/lib/ace/mode-forth.js', module: 'ace/mode/forth' },
   },
   lua: {
     systemName: 'lua',
     name: 'Lua',
     extension: 'lua',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['util/utf8.js', 'extern/lua/lua.closure.js'],
+    scripts: [],
     includes: [],
-    engine: 'langs/lua/jsrepl_lua.js',
+    engine: 'lua.js',
     minifier: 'none',
     emscripted: true,
     tagline: 'A lightweight multi-paradigm scripting language.',
     shortcut: 'L',
     aboutLink: 'http://en.wikipedia.org/wiki/Lua_(programming_language)',
-    engineLink: 'https://github.com/replit/jsrepl/tree/master/extern/lua',
+    engineLink: 'http://daurnimator.github.io/lua.vm.js/lua.vm.js.html',
 
     ace_mode: { script: '/lib/ace/mode-lua.js', module: 'ace/mode/lua' },
     header: 'Lua 5.1  Copyright (C) 1994-2006 Lua.org, PUC-Rio\n[GCC 4.2.1 (LLVM, Emscripten 1.5)] on linux2',
   },
   python: {
-    systemName: 'python',
-    name: 'Python',
+    systemName: 'python2',
+    name: 'Python 2',
     extension: 'py',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['util/utf8.js', { opera: 'extern/python/unclosured/python.js', default: 'extern/python/reloop-closured/python.js' }],
-    includes: ['extern/python/unclosured', 'extern/python/closured', 'extern/python/reloop-closured'],
+    scripts: ['util/utf8.js', {
+      opera: 'extern/python/unclosured/python.js',
+      default: 'extern/python/reloop-closured/python.js',
+    }],
+    includes: [
+      'extern/python/unclosured',
+      'extern/python/closured',
+      'extern/python/reloop-closured',
+    ],
     engine: 'langs/python/jsrepl_python.js',
     minifier: 'none',
     emscripted: true,

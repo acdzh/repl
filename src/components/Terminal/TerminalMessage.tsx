@@ -21,7 +21,7 @@ const TerminalMessage: React.FC<TerminalMessagePropsStyle> = ({
   >
     {
         !isDangerMode && content
-      }
+    }
   </div>
 );
 export default TerminalMessage;

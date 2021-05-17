@@ -21,6 +21,8 @@ export default class REPLEngine {
 
   ready: AnyFunctionType;
 
+  inspect: AnyFunctionType;
+
   CoffeeScript: any;
 
   constructor(
@@ -36,12 +38,27 @@ export default class REPLEngine {
     this.sandbox = sandbox;
     this.ready = ready;
 
+    this.inspect = this.sandbox.console.inspect;
+
     this.CoffeeScript = this.sandbox.CoffeeScript;
     this.sandbox.__eval = this.sandbox.eval;
     this.ready();
   }
 
   Eval(command: string): void {
+    try {
+      const compiled = this.CoffeeScript.compile(command, {
+        globals: true,
+        bare: true,
+      });
+      const result = this.sandbox.__eval(compiled);
+      this.result(result === undefined ? '' : this.inspect(result));
+    } catch (e) {
+      this.error(e);
+    }
+  }
+
+  RawEval(command: string): void {
     try {
       const compiled = this.CoffeeScript.compile(command, {
         globals: true,

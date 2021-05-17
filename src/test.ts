@@ -1,12 +1,7 @@
-class A {
-  match: number;
+import parser from 'lolcode';
 
-  constructor() {
+const a = 'VISIBLE "Hello world!"';
 
-  }
-}
+const b = parser(a);
 
-const a = new A();
-a.match = 12;
-
-console.log(a);
+console.log(b);

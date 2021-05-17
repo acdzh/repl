@@ -6,7 +6,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-
 const HtmlWebpackInsertAssestListPlugin = require('./HtmlWebpackInsertAssestListPlugin');
 
 const BASE_PATH = __dirname;
@@ -24,11 +23,21 @@ module.exports = (env, options) => {
   return {
     devtool: isDevMode ? 'source-map' : false,
     resolve: {
-      alias: {
-        '@': SRC_PATH,
-        '@/utils': path.join(SRC_PATH, 'utils'),
-      },
+      alias: {},
       extensions: ['.ts', '.tsx', '.js'],
+      fallback: {
+        fs: false,
+        tls: false,
+        net: false,
+        path: false,
+        zlib: false,
+        http: false,
+        https: false,
+        stream: false,
+        crypto: false,
+        vm: false,
+        // 'crypto-browserify': require.resolve('crypto-browserify'),
+      },
     },
     entry: {
       app: path.join(SRC_PATH, 'index.tsx'),
@@ -43,10 +52,10 @@ module.exports = (env, options) => {
       'react-dom': 'ReactDOM',
     },
     optimization: {
-      // splitChunks: {
-      //   chunks: 'all',
-      //   name: 'vendor',
-      // },
+      splitChunks: {
+        chunks: (chunk) => chunk.name === 'app',
+        name: 'vendor',
+      },
     },
     module: {
       rules: [
@@ -59,7 +68,7 @@ module.exports = (env, options) => {
           use: 'raw-loader',
         },
         {
-          test: /\.(ts|tsx)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
@@ -133,6 +142,9 @@ module.exports = (env, options) => {
     devServer: {
       historyApiFallback: true,
       publicPath,
+    },
+    performance: {
+      hints: false,
     },
   };
 };

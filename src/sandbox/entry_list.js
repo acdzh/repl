@@ -10,6 +10,12 @@ const langList = [
   'brainfuck',
   'coffee-script',
   'emoticon',
+  'forth',
+  'javascript',
+  'kaffeine',
+  'lolcode',
+  'lua',
+  'move',
 ];
 
 const entryMap = {};

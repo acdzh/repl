@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-webpack-loader-syntax
 import bfloop from 'raw-loader!./bloop.js';
 import REPLEngine from './engine';
 
