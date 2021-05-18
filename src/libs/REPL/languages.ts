@@ -271,30 +271,39 @@ const languageList = {
     ace_mode: { script: '/lib/ace/mode-lua.js', module: 'ace/mode/lua' },
     header: 'Lua 5.1  Copyright (C) 1994-2006 Lua.org, PUC-Rio\n[GCC 4.2.1 (LLVM, Emscripten 1.5)] on linux2',
   },
-  python: {
+  python2: {
     systemName: 'python2',
+    highlightName: 'python',
     name: 'Python 2',
     extension: 'py',
     matchings: [['(', ')'], ['[', ']'], ['{', '}']],
-    scripts: ['util/utf8.js', {
-      opera: 'extern/python/unclosured/python.js',
-      default: 'extern/python/reloop-closured/python.js',
-    }],
-    includes: [
-      'extern/python/unclosured',
-      'extern/python/closured',
-      'extern/python/reloop-closured',
-    ],
-    engine: 'langs/python/jsrepl_python.js',
+    scripts: [],
+    includes: [],
+    engine: 'python2.js',
     minifier: 'none',
     emscripted: true,
     tagline: 'A dynamic language emphasizing readability.',
     shortcut: 'P',
     aboutLink: 'http://en.wikipedia.org/wiki/Python_(programming_language)',
     engineLink: 'https://github.com/replit/empythoned',
-
-    ace_mode: { script: '/lib/ace/mode-python.js', module: 'ace/mode/python' },
-    header: 'Python 2.7.2 (default, Jul 20 2011, 02:32:18)\n[GCC 4.2.1 (LLVM, Emscripten 1.5, Empythoned)] on linux2',
+    header: 'Python 2.7.2 (default, May 20 2021, 02:32:18)\n[GCC 4.2.1 (LLVM, Emscripten 1.5, Empythoned)] on linux',
+  },
+  python3: {
+    systemName: 'python3',
+    highlightName: 'python',
+    name: 'Python 3',
+    extension: 'py',
+    matchings: [['(', ')'], ['[', ']'], ['{', '}']],
+    scripts: [],
+    includes: [],
+    engine: 'python3.js',
+    minifier: 'none',
+    emscripted: true,
+    tagline: 'A dynamic language emphasizing readability.',
+    shortcut: 'P',
+    aboutLink: 'http://en.wikipedia.org/wiki/Python_(programming_language)',
+    engineLink: 'https://github.com/replit/empythoned',
+    header: 'Python 3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)] on win32\nType "help", "copyright", "credits" or "license" for more information.',
   },
   ruby: {
     systemName: 'ruby',
@@ -334,6 +343,7 @@ const languageList = {
   [propType: string]: {
     systemName: string;
     name: string;
+    highlightName?: string;
     extension?: string;
     matchings: Array<Array<string>>;
     includes: Array<string>;

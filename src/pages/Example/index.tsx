@@ -37,11 +37,12 @@ type CodeCardPropsType = {
   name: string;
   content: string;
   lang?: string;
+  highlightName: string;
   type: 'console' | 'editor';
 }
 
 const CodeCard: React.FC<CodeCardPropsType> = ({
-  name, type, content, lang = 'plain',
+  name, type, content, lang = '', highlightName = 'plain',
 }) => {
   const theme = useTheme();
   const [open, setOpen, reverseOpen] = useReversibleState(false);
@@ -52,7 +53,7 @@ const CodeCard: React.FC<CodeCardPropsType> = ({
           <Typography variant="h6" component="h2">
             {name}
           </Typography>
-          <Highlight language={lang} theme={theme.palette.type}>
+          <Highlight language={highlightName} theme={theme.palette.type}>
             {content}
           </Highlight>
         </CardContent>
@@ -132,6 +133,7 @@ const Home: React.FC = () => {
                   name={example.name}
                   content={example.content}
                   lang={lang}
+                  highlightName={langDetail?.highlightName || lang}
                 />
               ),
             )

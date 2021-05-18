@@ -12,7 +12,7 @@ const TerminalEcho: React.FC<TerminalEchoPropsType> = ({
   <pre className="terminal-messagee-container">
     <span>
       {promptLabel}
-        &nbsp;
+      {promptLabel ? '&nbsp;' : ''}
     </span>
     <span>{rawInput}</span>
   </pre>

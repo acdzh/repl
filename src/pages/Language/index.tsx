@@ -84,9 +84,6 @@ const Home: React.FC = () => {
   const [updateEvent] = useState(new Event());
   const repl = useMemo(() => new REPL({
     result: (data) => {
-      if (!data || data === '' || data === []) {
-        return;
-      }
       updateEvent.dispatch(
         <>
           {
@@ -96,13 +93,22 @@ const Home: React.FC = () => {
       );
     },
     output: (data) => {
-      if (!data || data === '' || data === []) {
-        return;
-      }
-      updateEvent.dispatch(data);
+      updateEvent.dispatch(
+        <>
+          {
+          data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="">{d}</span>} />)
+        }
+        </>,
+      );
     },
     error: (data) => {
-      updateEvent.dispatch(<TerminalEcho promptLabel="" rawInput={<span className="terminal-token-error">{data}</span>} />);
+      updateEvent.dispatch(
+        <>
+          {
+          data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="terminal-token-error">{d}</span>} />)
+        }
+        </>,
+      );
     },
   }), []);
   useEffect(() => {
@@ -128,7 +134,7 @@ const Home: React.FC = () => {
             </Fab>
             <Editor
               value={editorValue}
-              language={lang}
+              language={langDetail?.highlightName || lang}
               theme={editorTheme}
               options={{
                 scrollBeyondLastLine: false,

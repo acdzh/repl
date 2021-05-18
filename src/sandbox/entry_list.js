@@ -16,6 +16,8 @@ const langList = [
   'lolcode',
   'lua',
   'move',
+  'python2',
+  'python3',
 ];
 
 const entryMap = {};

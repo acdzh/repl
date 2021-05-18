@@ -9,7 +9,8 @@ import kaffeine from './kaffeine';
 import lolcode from './lolcode';
 import lua from './lua';
 import move from './move';
-import python from './python';
+import python2 from './python2';
+import python3 from './python3';
 import qbasic from './qbasic';
 import roy from './roy';
 import ruby from './ruby';
@@ -34,7 +35,8 @@ export default {
   lolcode,
   lua,
   move,
-  python,
+  python2,
+  python3,
   qbasic,
   roy,
   ruby,

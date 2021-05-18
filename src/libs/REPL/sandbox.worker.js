@@ -637,7 +637,7 @@ const format = function (f) {
 
 const times = {};
 self.console.log = function () {
-  Sandboss.out(`${format.apply(this, arguments)}\n`);
+  Sandboss.out(`${format.apply(this, arguments)}`);
 },
 self.console.dir = function (obj) {
   Sandboss.out(`${inspect(obj)}\n`);

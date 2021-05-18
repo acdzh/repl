@@ -19,7 +19,7 @@ const { sandboxEntryMap } = require('./src/sandbox/entry_list');
 
 module.exports = (env, options) => {
   const isDevMode = options.mode === 'development';
-  const publicPath = isDevMode ? 'http://localhost:8080' : 'http://localhost:5502';
+  const publicPath = isDevMode ? 'http://localhost:8080' : 'http://localhost:5500';
   return {
     devtool: isDevMode ? 'source-map' : false,
     resolve: {
