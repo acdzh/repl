@@ -38,6 +38,7 @@ import useEffectState from '@hooks/useEffectState';
 import langDic from '@libs/REPL/languages';
 import REPL from '@libs/REPL';
 import useLocalStorage from '@hooks/useLocalStorage';
+import useLocalStorageState from '@hooks/useLocalStorageState';
 import useUrlSearchParams from '@hooks/useUrlSearchParams';
 import readFile from '@utils/readFile';
 import downloadText from '@utils/downloadText';
@@ -109,7 +110,7 @@ const Home: React.FC = () => {
 
 
   const editorRef = useRef<any>(null);
-  const [editorValue, setEditorValue] = useLocalStorage(
+  const [editorValue, setEditorValue] = useLocalStorageState(
     `${lang}-editor-content`,
     locationState?.example && locationState?.example.type === 'editor' ? locationState?.example.content : '',
     locationState?.example && locationState?.example.type === 'editor',
