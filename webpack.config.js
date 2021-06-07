@@ -6,6 +6,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackInsertAssestListPlugin = require('./HtmlWebpackInsertAssestListPlugin');
 
 const BASE_PATH = __dirname;
@@ -125,6 +126,11 @@ module.exports = (env, options) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'static' },
+        ],
+      }),
       new HtmlWebpackPlugin({
         template: path.join(PUBLIC_PATH, 'index.html'),
         filename: path.join(DIST_PATH, 'index.html'),
