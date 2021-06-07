@@ -8,6 +8,7 @@ type REPLConstructorPropsType = {
   input?: AnyFunctionType;
   output?: AnyFunctionType;
   result?: AnyFunctionType;
+  ready?: AnyFunctionType;
   error?: AnyFunctionType;
   progress: AnyFunctionType;
   timeout?: {
@@ -38,9 +39,11 @@ export default class REPL extends EventEmitter {
     input,
     output,
     progress,
+    ready,
     timeout,
     inputServer = {},
   }: REPLConstructorPropsType) {
+    console.time('REPL Ready');
     super();
     const db = window.openDatabase('replit_input', '1.0', 'Emscripted input', 1024);
     db.transaction((tx) => {
@@ -73,6 +76,7 @@ export default class REPL extends EventEmitter {
       },
       error,
       result,
+      ready,
       progress,
       db_input: () => {
         this.fire('input', (data: unknown) => {
@@ -121,6 +125,10 @@ export default class REPL extends EventEmitter {
     }
     this.currentLangName = langName;
     this.lang = languageDic[langName];
+
+    this.sandbox.once('ready', () => {
+      console.timeEnd('REPL Ready');
+    });
 
     if (callback) {
       this.sandbox.once('ready', callback);

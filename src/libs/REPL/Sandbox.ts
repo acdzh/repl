@@ -5,8 +5,6 @@ import { scriptMap, workerSupported } from './const';
 // eslint-disable-next-line import/extensions
 import SandboxWorker from './sandbox.worker.js';
 
-console.log(SandboxWorker);
-
 export default class Sandbox extends EventEmitter {
   // The scripts that loads every time a new worker is created.
   private baseScripts: string[];
@@ -48,8 +46,6 @@ export default class Sandbox extends EventEmitter {
     try {
       const msg = JSON.parse(event.data);
       // Execute listeners.
-      console.log(this, this.fire);
-
       this.fire(msg.type, [msg.data]);
     } catch (e) {
       // do nothing to ignore

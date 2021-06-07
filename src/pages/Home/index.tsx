@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   createStyles,
@@ -21,6 +21,9 @@ import {
 
 import clsx from 'clsx';
 import langDic from '../../libs/REPL/languages';
+
+// eslint-disable-next-line import/no-cycle
+import { AppContext } from '../../App';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -56,7 +59,12 @@ const StyledLink = styled(Link)({
 
 const Home: React.FC = () => {
   const classes = useStyles();
+  const { setTitle } = useContext(AppContext);
   const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    setTitle('Overview');
+  });
   return (
     <Container maxWidth="md" className={classes.container}>
       <header className={classes.header}>

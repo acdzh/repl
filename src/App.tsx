@@ -27,6 +27,11 @@ import {
 import {
   Home as HomeIcon,
   Help as HelpIcon,
+  Public as PublicIcon,
+  Person as PersonIcon,
+  Notifications as NotificationsIcon,
+  InvertColors as InvertColorsIcon,
+  GitHub as GitHubIcon,
   BrightnessHigh as BrightnessHighIcon,
   Brightness4 as Brightness4Icon,
 } from '@material-ui/icons';
@@ -66,6 +71,14 @@ const StyledLink = styled(Link)({
   textDecoration: 'none',
 });
 
+export const AppContext = React.createContext<{
+  setTitle:React.Dispatch<React.SetStateAction<string>>
+}>({
+  setTitle: () => {
+    //
+  },
+});
+
 const App: React.FC = () => {
   const classes = useStyles();
   const [isDarkMode, , reverseIsDarkMode] = useReversibleState(true);
@@ -81,66 +94,85 @@ const App: React.FC = () => {
     }),
     [isDarkMode],
   );
+  const [title, setTitle] = useState('Overview');
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <Typography
-              variant="h6"
-              style={{ flexGrow: 1 }}
-            >
-              Overview
-            </Typography>
-            <IconButton
-              color="inherit"
-              onClick={reverseIsDarkMode}
-            >
-              {
-                isDarkMode ? <BrightnessHighIcon /> : <Brightness4Icon />
-              }
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" className={classes.drawer} classes={{ paper: classes.drawer }}>
-          <Toolbar />
-          <div>
-            <List>
-              <StyledLink to="/">
-                <ListItem button>
-                  <ListItemIcon><HomeIcon /></ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItem>
-              </StyledLink>
-              <StyledLink to="/about">
-                <ListItem button>
-                  <ListItemIcon><HelpIcon /></ListItemIcon>
-                  <ListItemText primary="About" />
-                </ListItem>
-              </StyledLink>
-            </List>
-          </div>
-        </Drawer>
+    <AppContext.Provider value={{ setTitle }}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <Typography
+                variant="h6"
+                style={{ flexGrow: 1 }}
+              >
+                {title}
+              </Typography>
+              <IconButton><NotificationsIcon /></IconButton>
+              <IconButton><GitHubIcon /></IconButton>
+              <IconButton><InvertColorsIcon /></IconButton>
+              <IconButton
+                color="inherit"
+                onClick={reverseIsDarkMode}
+              >
+                {
+                  isDarkMode ? <BrightnessHighIcon /> : <Brightness4Icon />
+                }
+              </IconButton>
+              <IconButton><PersonIcon /></IconButton>
+            </Toolbar>
+          </AppBar>
+          <Drawer variant="permanent" className={classes.drawer} classes={{ paper: classes.drawer }}>
+            <Toolbar />
+            <div>
+              <List>
+                <StyledLink to="/">
+                  <ListItem button>
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                </StyledLink>
+                <StyledLink to="/about">
+                  <ListItem button>
+                    <ListItemIcon><HelpIcon /></ListItemIcon>
+                    <ListItemText primary="About" />
+                  </ListItem>
+                </StyledLink>
+                <StyledLink to="/discovery">
+                  <ListItem button>
+                    <ListItemIcon><PublicIcon /></ListItemIcon>
+                    <ListItemText primary="Discovery" />
+                  </ListItem>
+                </StyledLink>
+                <StyledLink to="/me">
+                  <ListItem button>
+                    <ListItemIcon><PersonIcon /></ListItemIcon>
+                    <ListItemText primary="Me" />
+                  </ListItem>
+                </StyledLink>
+              </List>
+            </div>
+          </Drawer>
 
-        <div className={classes.mainContainer}>
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/example/:lang">
-              <Example />
-            </Route>
-            <Route path="/run/:lang">
-              <Language />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </ThemeProvider>
+          <div className={classes.mainContainer}>
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/example/:lang">
+                <Example />
+              </Route>
+              <Route path="/run/:lang">
+                <Language />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </AppContext.Provider>
   );
 };
 

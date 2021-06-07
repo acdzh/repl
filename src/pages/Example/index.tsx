@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useReversibleState from '@hooks/useReversibleState';
 import {
@@ -21,6 +21,9 @@ import Highlight from '../../components/Highlight';
 
 import langDic from '../../libs/REPL/languages';
 import exampleDic from '../../libs/examples';
+
+// eslint-disable-next-line import/no-cycle
+import { AppContext } from '../../App';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -102,8 +105,13 @@ type ParamsType = {
 
 const Home: React.FC = () => {
   const classes = useStyles();
+  const { setTitle } = useContext(AppContext);
   const { lang } = useParams() as ParamsType;
   const langDetail = langDic[lang];
+
+  useEffect(() => {
+    setTitle(`${langDetail.name} Example`);
+  });
   return (
     <Container maxWidth="md" className={classes.container}>
       <header className="mb-20">

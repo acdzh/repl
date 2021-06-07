@@ -57,6 +57,7 @@ const needEndWrap = (str: string, matchings: MatchingType) : {
 };
 
 type TerminalPropsType = {
+  loading?: boolean;
   theme?: 'dark' | 'light';
   style?: React.CSSProperties;
   contentStyle?: React.CSSProperties;
@@ -123,6 +124,8 @@ type MessageLineType = {
 };
 
 const Terminal: React.FC<TerminalPropsType> = ({
+  loading = false,
+
   theme = 'dark',
   style,
   contentStyle,
@@ -225,7 +228,7 @@ const Terminal: React.FC<TerminalPropsType> = ({
   const focusTerminal = useCallback(() => {
     // Only focus the terminal if text isn't being copied
     // Only focus if input is there (Goes away for read-only terminals)
-    if (!(window.getSelection()?.type === 'Range') && terminalInputRef.current) {
+    if (!loading && !(window.getSelection()?.type === 'Range') && terminalInputRef.current) {
       terminalInputRef.current.focus();
     }
   }, [terminalInputRef]);
@@ -524,6 +527,13 @@ const Terminal: React.FC<TerminalPropsType> = ({
       style={style}
       onClick={focusTerminal}
     >
+      {/* Loading */}
+      <div className={clsx('terminal-loading-container', {
+        hidden: !loading,
+      })}
+      >
+        <div className="terminal-loading">Waiting for Sandbox</div>
+      </div>
       {/* Content */}
       <div
         className={clsx('terminal-content', contentClassName)}

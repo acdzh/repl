@@ -1,10 +1,13 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, {
+  useMemo, useEffect, useState, useContext, useRef,
+} from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import {
   createStyles,
   makeStyles,
   styled,
   useTheme,
+  withStyles,
 } from '@material-ui/core/styles';
 import {
   Button,
@@ -14,6 +17,11 @@ import {
   Container,
   Fab,
   Grid,
+  Input,
+  Menu,
+  MenuItem,
+  MenuProps,
+  OutlinedInput,
   Paper,
   TextField,
   Typography,
@@ -33,21 +41,21 @@ import langDic from '@libs/REPL/languages';
 import REPL from '@libs/REPL';
 import Terminal, { TerminalEcho } from '../../components/Terminal';
 
+// eslint-disable-next-line import/no-cycle
+import { AppContext } from '../../App';
 import './index.css';
-
-console.log(REPL);
-
-// const lua = new LuaVM.Lua.State();
-// const oldLog = console.log;
-// window.console.log = (s) => {
-//   oldLog(123, s);
-// };
-// lua.execute('print("Hello, world")');
+import readFile from '@utils/readFile';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
     padding: 20,
     height: '100%',
+  },
+  menuContainer: {
+
+  },
+  menuButton: {
+    textTransform: 'unset',
   },
   editorPaper: {
     padding: '20px',
@@ -62,6 +70,27 @@ const useStyles = makeStyles(() => createStyles({
   },
 }));
 
+const StyledMenu = withStyles({
+  paper: {
+    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+  },
+})((props: MenuProps) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'left',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'left',
+    }}
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...props}
+  />
+));
+
 type ParamsType = {
   lang: string;
 };
@@ -75,40 +104,40 @@ type LocationStateType = {
 
 const Home: React.FC = () => {
   const classes = useStyles();
+  const { setTitle } = useContext(AppContext);
   const { lang } = useParams<ParamsType>();
   const { state: locationState } = useLocation<LocationStateType>();
   const theme = useTheme();
+  const editorRef = useRef<any>(null);
   const [editorValue, setEditorValue] = useState(locationState?.example && locationState?.example.type === 'editor' ? locationState?.example.content : '');
   const [editorTheme] = useEffectState(() => (theme.palette.type === 'dark' ? 'vs-dark' : 'light'), [theme]);
   const langDetail = useMemo(() => langDic[lang], [lang]);
   const [updateEvent] = useState(new Event());
+  const [terminalLoading, setTerminalLoading] = useState(true);
   const repl = useMemo(() => new REPL({
     result: (data) => {
       updateEvent.dispatch(
         <>
-          {
-          data.split('\n').map((d) => <TerminalEcho promptLabel="=>" rawInput={d} />)
-        }
+          { data.split('\n').map((d) => <TerminalEcho promptLabel="=>" rawInput={d} />) }
         </>,
       );
     },
     output: (data) => {
       updateEvent.dispatch(
         <>
-          {
-          data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="">{d}</span>} />)
-        }
+          { data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="">{d}</span>} />) }
         </>,
       );
     },
     error: (data) => {
       updateEvent.dispatch(
         <>
-          {
-          data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="terminal-token-error">{d}</span>} />)
-        }
+          { data.split('\n').map((d) => <TerminalEcho promptLabel="" rawInput={<span className="terminal-token-error">{d}</span>} />) }
         </>,
       );
+    },
+    ready: () => {
+      setTerminalLoading(false);
     },
   }), []);
   useEffect(() => {
@@ -117,8 +146,170 @@ const Home: React.FC = () => {
     });
   }, [lang]);
 
+  // File
+  const [fileName, setFileName] = useState('untitle');
+  useEffect(() => {
+    setTitle(`${langDetail.name} - ${fileName}.${langDetail.extension}`);
+  }, [fileName]);
+
+  // Menu
+  const [anchorEls, setAnchorEl] = React.useState<{ [prop: string]: null | HTMLElement }>({});
+
+  const handleMenuClose = () => {
+    setAnchorEl({});
+  };
+
+  const changeFileName = () => {
+    handleMenuClose();
+    // eslint-disable-next-line no-alert
+    const newFileName = prompt('Please input the new file name:', fileName);
+    if (newFileName && newFileName !== '') {
+      setFileName(newFileName);
+    }
+  };
+
+  const importFromLocalFile = async () => {
+    handleMenuClose();
+    const c = await readFile({
+      accept: `.txt,.${langDetail.extension}`,
+    });
+    if (c && c !== '') {
+      setEditorValue(c);
+    }
+  };
+
   return (
     <Container maxWidth="xl" className={classes.container}>
+      <div className={classes.menuContainer}>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          className={classes.menuButton}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            setAnchorEl({
+              file: event.currentTarget,
+            });
+          }}
+        >
+          File(F)
+        </Button>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          className={classes.menuButton}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            setAnchorEl({
+              edit: event.currentTarget,
+            });
+          }}
+        >
+          Edit(E)
+        </Button>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          className={classes.menuButton}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            setAnchorEl({
+              run: event.currentTarget,
+            });
+          }}
+        >
+          Run(R)
+        </Button>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          className={classes.menuButton}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            setAnchorEl({
+              help: event.currentTarget,
+            });
+          }}
+        >
+          Help(H)
+        </Button>
+        <StyledMenu
+          anchorEl={anchorEls.file}
+          keepMounted
+          open={Boolean(anchorEls.file)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={changeFileName}>Change File Name</MenuItem>
+          <MenuItem onClick={importFromLocalFile}>Import from Local</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Export to Local</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Save</MenuItem>
+        </StyledMenu>
+        <StyledMenu
+          anchorEl={anchorEls.edit}
+          keepMounted
+          open={Boolean(anchorEls.edit)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Undo</MenuItem>
+          <MenuItem onClick={importFromLocalFile}>Redo</MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'cursorUndo');
+          }}
+          >
+            Previous Cursor Position
+          </MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'cursorRedo');
+          }}
+          >
+            Next Cursor Position
+          </MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'editor.action.clipboardCopyWithSyntaxHighlightingAction');
+            editorRef.current?.trigger('', 'deleteInsideWord');
+          }}
+          >
+            Cut
+          </MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'editor.action.clipboardCopyWithSyntaxHighlightingAction');
+          }}
+          >
+            Copy
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>Paste</MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'actions.findWithSelection');
+          }}
+          >
+            Find
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>Replace</MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'editor.action.commentLine');
+          }}
+          >
+            Toggle Line Comment
+          </MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            editorRef.current?.trigger('', 'editor.action.blockComment');
+          }}
+          >
+            Toggle Block Comment
+          </MenuItem>
+        </StyledMenu>
+        <StyledMenu
+          anchorEl={anchorEls.run}
+          keepMounted
+          open={Boolean(anchorEls.run)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Run</MenuItem>
+        </StyledMenu>
+      </div>
       <Grid className="h-full" container spacing={4}>
         <Grid item xs={6}>
           <Paper className={classes.editorPaper}>
@@ -140,12 +331,18 @@ const Home: React.FC = () => {
                 scrollBeyondLastLine: false,
               }}
               onChange={(v) => { setEditorValue(v || ''); }}
+              onMount={(editor, monaco) => {
+                editorRef.current = editor;
+                window.editorr = editor;
+                console.log(window.editorr._actions);
+              }}
             />
           </Paper>
         </Grid>
         <Grid className="h-full" item xs={6}>
           <Paper className="h-full">
             <Terminal
+              loading={terminalLoading}
               theme={theme.palette.type}
               welcomeMessage={langDetail.header}
               promptLabel="me@React:~$"

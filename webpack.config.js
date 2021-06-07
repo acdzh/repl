@@ -137,7 +137,8 @@ module.exports = (env, options) => {
         chunks: ['sandbox.worker'],
       }),
       new HtmlWebpackInsertAssestListPlugin(),
-      ...(isDevMode ? [] : [new BundleAnalyzerPlugin()]),
+      // new BundleAnalyzerPlugin(),
+      // ...(isDevMode ? [] : [new BundleAnalyzerPlugin()]),
     ],
     devServer: {
       historyApiFallback: true,
