@@ -1,7 +1,7 @@
 import React, {
   useMemo, useEffect, useState, useContext, useRef,
 } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, Link, useHistory } from 'react-router-dom';
 import {
   createStyles,
   makeStyles,
@@ -35,16 +35,16 @@ import Editor from '@monaco-editor/react';
 
 import Event from '@libs/Event';
 import useEffectState from '@hooks/useEffectState';
-
 import langDic from '@libs/REPL/languages';
-
 import REPL from '@libs/REPL';
+import useLocalStorage from '@hooks/useLocalStorage';
+import readFile from '@utils/readFile';
+import downloadText from '@utils/downloadText';
 import Terminal, { TerminalEcho } from '../../components/Terminal';
 
 // eslint-disable-next-line import/no-cycle
 import { AppContext } from '../../App';
 import './index.css';
-import readFile from '@utils/readFile';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -105,12 +105,20 @@ type LocationStateType = {
 const Home: React.FC = () => {
   const classes = useStyles();
   const { setTitle } = useContext(AppContext);
+  const history = useHistory();
   const { lang } = useParams<ParamsType>();
   const { state: locationState } = useLocation<LocationStateType>();
   const theme = useTheme();
+
+
   const editorRef = useRef<any>(null);
-  const [editorValue, setEditorValue] = useState(locationState?.example && locationState?.example.type === 'editor' ? locationState?.example.content : '');
+  const [editorValue, setEditorValue] = useLocalStorage(
+    `${lang}-editor-content`,
+    locationState?.example && locationState?.example.type === 'editor' ? locationState?.example.content : '',
+    locationState?.example && locationState?.example.type === 'editor',
+  );
   const [editorTheme] = useEffectState(() => (theme.palette.type === 'dark' ? 'vs-dark' : 'light'), [theme]);
+  
   const langDetail = useMemo(() => langDic[lang], [lang]);
   const [updateEvent] = useState(new Event());
   const [terminalLoading, setTerminalLoading] = useState(true);
@@ -147,7 +155,7 @@ const Home: React.FC = () => {
   }, [lang]);
 
   // File
-  const [fileName, setFileName] = useState('untitle');
+  const [fileName, setFileName] = useLocalStorage(`${lang}-title`, 'untitle');
   useEffect(() => {
     setTitle(`${langDetail.name} - ${fileName}.${langDetail.extension}`);
   }, [fileName]);
@@ -176,6 +184,11 @@ const Home: React.FC = () => {
     if (c && c !== '') {
       setEditorValue(c);
     }
+  };
+
+  const exportToLocalFile = async () => {
+    handleMenuClose();
+    downloadText(`${fileName}.${langDetail.extension}`, editorValue);
   };
 
   return (
@@ -237,7 +250,7 @@ const Home: React.FC = () => {
         >
           <MenuItem onClick={changeFileName}>Change File Name</MenuItem>
           <MenuItem onClick={importFromLocalFile}>Import from Local</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Export to Local</MenuItem>
+          <MenuItem onClick={exportToLocalFile}>Export to Local</MenuItem>
           <MenuItem onClick={handleMenuClose}>Save</MenuItem>
         </StyledMenu>
         <StyledMenu
@@ -307,7 +320,27 @@ const Home: React.FC = () => {
           open={Boolean(anchorEls.run)}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleMenuClose}>Run</MenuItem>
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            repl.eval(editorValue);
+          }}
+          >
+            Run
+          </MenuItem>
+        </StyledMenu>
+        <StyledMenu
+          anchorEl={anchorEls.help}
+          keepMounted
+          open={Boolean(anchorEls.help)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={() => {
+            handleMenuClose();
+            history.push('/about');
+          }}
+          >
+            About
+          </MenuItem>
         </StyledMenu>
       </div>
       <Grid className="h-full" container spacing={4}>
@@ -333,8 +366,6 @@ const Home: React.FC = () => {
               onChange={(v) => { setEditorValue(v || ''); }}
               onMount={(editor, monaco) => {
                 editorRef.current = editor;
-                window.editorr = editor;
-                console.log(window.editorr._actions);
               }}
             />
           </Paper>

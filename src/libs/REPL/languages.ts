@@ -226,7 +226,7 @@ const languageList = {
   bloop: {
     systemName: 'bloop',
     name: 'Bloop',
-    extensions: 'bloop',
+    extension: 'bloop',
     matchings: [],
     scripts: [],
     includes: [],
@@ -241,7 +241,7 @@ const languageList = {
   forth: {
     systemName: 'forth',
     name: 'Forth',
-    extensions: '4th',
+    extension: '4th',
     matchings: [['(', ')'], [':', ';']],
     scripts: [],
     includes: [],

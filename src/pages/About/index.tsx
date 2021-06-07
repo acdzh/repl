@@ -1,75 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import Event from '@libs/Event';
-import useLinster from '@hooks/useEvent';
+import React, { useContext, useEffect, useState } from 'react';
+import { Container, Divider, Typography } from '@material-ui/core';
 
-const Child: React.FC<{ e: Event }> = ({ e }) => {
-  const [c, setc] = useState(1);
+// eslint-disable-next-line import/no-cycle
+import { AppContext } from '../../App';
 
-  // useLinster(e, () => {
-  //   console.log(`child was called${Math.random()}`);
-  //   setS(`${s}\ngfdfgd`);
-  // }, [s]);
-
+const Home: React.FC = () => {
+  const { setTitle } = useContext(AppContext);
   useEffect(() => {
-    const listener = () => {
-      console.log(`child was called${Math.random()}`);
-      setc(c + 1);
-    };
-    e.register(listener);
-    return () => {
-      e.unRegister(listener);
-    };
-  }, [e, c]);
-
+    setTitle('About');
+  });
   return (
-    <div style={{ background: 'green' }}>
-      I am Child.
-      <br />
-      {c}
-    </div>
+    <Container maxWidth="md" style={{ margin: 20 }}>
+      <Typography variant="h4" component="h2">
+        About
+      </Typography>
+      <Divider />
+      <div style={{ marginTop: 10, fontSize: 20 }}>
+        This is a simple REPL environment for starter.
+        <br />
+        For more information, please visit
+        {' '}
+        <a href="https://github.com/acdzh/repl">https://github.com/acdzh/repl</a>
+        .
+      </div>
+    </Container>
   );
 };
-
-const Father = () => {
-  const [e] = useState(new Event());
-  useLinster(e, () => {
-    console.log('father was called');
-  }, []);
-
-  return (
-    <div style={{ background: 'yellow' }}>
-      I am Father.
-      <button onClick={() => {
-        console.log('father dispatch;');
-        e.dispatch();
-      }}
-      >
-        adadadad
-
-      </button>
-      <Child e={e} />
-    </div>
-  );
-};
-
-const B = () => {
-  const [a, setA] = useState('');
-
-  return (
-    <input
-      value={a}
-      onChange={(e) => {
-        setA(e.target.value);
-      }}
-    />
-  );
-};
-
-const Home: React.FC = () => (
-  <>
-    <Father />
-    <B />
-  </>
-);
 
 export default Home;

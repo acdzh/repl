@@ -38,6 +38,7 @@ import {
 
 import useEditableState from '@hooks/useEditableState';
 import useReversibleState from '@hooks/useReversibleState';
+import useLocalStorage from '@hooks/useLocalStorage';
 import Home from './pages/Home';
 import About from './pages/About';
 import Example from './pages/Example';
@@ -95,6 +96,7 @@ const App: React.FC = () => {
     [isDarkMode],
   );
   const [title, setTitle] = useState('Overview');
+  const [isLogin, setIsLogin] = useLocalStorage('is-login', false);
   return (
     <AppContext.Provider value={{ setTitle }}>
       <ThemeProvider theme={theme}>
@@ -108,9 +110,9 @@ const App: React.FC = () => {
               >
                 {title}
               </Typography>
-              <IconButton><NotificationsIcon /></IconButton>
-              <IconButton><GitHubIcon /></IconButton>
-              <IconButton><InvertColorsIcon /></IconButton>
+              <IconButton color="inherit"><NotificationsIcon /></IconButton>
+              <IconButton color="inherit" onClick={() => { window.open('https://www.github.com/acdzh/repl'); }}><GitHubIcon /></IconButton>
+              <IconButton color="inherit"><InvertColorsIcon /></IconButton>
               <IconButton
                 color="inherit"
                 onClick={reverseIsDarkMode}
@@ -119,7 +121,7 @@ const App: React.FC = () => {
                   isDarkMode ? <BrightnessHighIcon /> : <Brightness4Icon />
                 }
               </IconButton>
-              <IconButton><PersonIcon /></IconButton>
+              <IconButton color="inherit"><PersonIcon /></IconButton>
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" className={classes.drawer} classes={{ paper: classes.drawer }}>
