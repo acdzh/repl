@@ -38,6 +38,7 @@ import useEffectState from '@hooks/useEffectState';
 import langDic from '@libs/REPL/languages';
 import REPL from '@libs/REPL';
 import useLocalStorage from '@hooks/useLocalStorage';
+import useUrlSearchParams from '@hooks/useUrlSearchParams';
 import readFile from '@utils/readFile';
 import downloadText from '@utils/downloadText';
 import Terminal, { TerminalEcho } from '../../components/Terminal';
@@ -91,10 +92,6 @@ const StyledMenu = withStyles({
   />
 ));
 
-type ParamsType = {
-  lang: string;
-};
-
 type LocationStateType = {
   example?: {
     type: 'console' | 'editor';
@@ -106,7 +103,7 @@ const Home: React.FC = () => {
   const classes = useStyles();
   const { setTitle } = useContext(AppContext);
   const history = useHistory();
-  const { lang } = useParams<ParamsType>();
+  const { lang, id } = useUrlSearchParams();
   const { state: locationState } = useLocation<LocationStateType>();
   const theme = useTheme();
 

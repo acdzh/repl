@@ -113,7 +113,7 @@ const Home: React.FC = () => {
                     </StyledLink>
                   </Button>
                   <Button size="small">
-                    <StyledLink to={`/run/${detail.systemName}`}>
+                    <StyledLink to={`/ide?lang=${detail.systemName}`}>
                       Run
                     </StyledLink>
                   </Button>

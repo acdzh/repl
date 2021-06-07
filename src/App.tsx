@@ -164,7 +164,7 @@ const App: React.FC = () => {
               <Route path="/example/:lang">
                 <Example />
               </Route>
-              <Route path="/run/:lang">
+              <Route path="/ide">
                 <Language />
               </Route>
               <Route path="/">
