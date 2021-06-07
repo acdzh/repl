@@ -33,6 +33,9 @@ jobs:
       - name: Commit files
         run: |
           cd ./dist
+          echo 'repl.acdzh.com' > CNAME
+          cp index.html about.html
+          cp index.html ide.html
           git init
           git config --local user.name acdzh
           git config --local user.email acdzh@outlook.com

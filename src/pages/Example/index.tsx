@@ -72,7 +72,8 @@ const CodeCard: React.FC<CodeCardPropsType> = ({
           </Button>
           <Button size="small">
             <StyledLink to={{
-              pathname: `/ide?lang=${lang}`,
+              pathname: `/ide`,
+              search: `?lang=${lang}`,
               state: {
                 example: {
                   type,
